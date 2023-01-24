@@ -1,0 +1,44 @@
+<h4 xmlns:th="http://www.thymeleaf.org" th:each="race : ${standings}" th:text="${race.get(0).raceTrack}" class="race-standings-track hidden">Track</h4>
+<br>
+<table xmlns:th="http://www.thymeleaf.org" th:each="race : ${standings}" class="race-standings-table hidden">
+  <thead>
+  <tr>
+    <th width="5%">RANK</th>
+    <th width="17%">DRIVER</th>
+    <th width="5%">CAR</th>
+    <th width="7%">POINTS</th>
+    <th width="7%">LDR</th>
+    <th width="7%">NXT</th>
+    <th width="3%">STARTS</th>
+    <th width="3%">POLES</th>
+    <th width="3%">WINS</th>
+    <th width="3%">T5</th>
+    <th width="3%">T10</th>
+    <th width="3%">DNF</th>
+    <th width="9%">LC</th>
+    <th width="7%">LL</th>
+    <th width="9%">AVG START</th>
+    <th width="9%">AVG FINISH</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="driver : ${race}">
+    <td th:text="${driver.pointsPosition}">Rank</td>
+    <td th:text="${driver.firstName} + ' ' + ${driver.lastName}">Driver</td>
+    <td th:text="${driver.number}">Car</td>
+    <td th:text="${driver.points}">Points</td>
+    <td th:text="${driver.leader}">Ldr</td>
+    <td th:text="${driver.next}">Nxt</td>
+    <td th:text="${driver.racesRun}">Starts</td>
+    <td th:text="${driver.poles}">Poles</td>
+    <td th:text="${driver.wins}">Wins</td>
+    <td th:text="${driver.t5}">T5s</td>
+    <td th:text="${driver.t10}">T10s</td>
+    <td th:text="${driver.dnf}">DNFs</td>
+    <td th:text="${driver.lapsRun}">LC</td>
+    <td th:text="${driver.lapsLed}">LL</td>
+    <td th:text="${driver.avgStart}">Avg Start</td>
+    <td th:text="${driver.avgFinish}">Avg Finish</td>
+  </tr>
+  </tbody>
+</table>
