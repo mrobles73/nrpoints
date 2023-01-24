@@ -1,39 +1,37 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/fragments.html :: head"></head>
-<body>
-    <div th:replace="fragments/fragments.html :: header"></div>
-    <div class="bg"></div>
-    <div class="content">
-        <h1>About nrpoints</h1>
-        <br>
-        <p>
-            Since the in-game scoring system for NR2003 is limited up to 2003, to be able to calculate full season standings for any other year with accurate scoring, I came up with this application and decided to put it here to easily use it. The way it works is using the html file that you can export after running a race in NR2003.
-            You just select the series (currently just Cup, Xfinity and trucks coming soon), the year (ranging from 1975 to now), pick the export files and submit. Make sure the file names end with the correlating race number so the race scoring order can be accurate.
-            Once you submit and the standings are displayed, you can add more races as well by clicking the Add Race button and selecting the files. You can only add up to the number of races that are usually run in that series year (ex. 36 for cup).
-        </p>
-        <br>
-        <p>
-            File types for now are just html, but it doesn't have to be only the html exported from the race results although the html itself does have to match the export file for it to be read correctly.
-        </p>
-        <br>
-        <h2>Current Issues</h2>
-        <p>
-            The scoring system is accurate to the NASCAR points system for each year except for the years that stage points were introduced since there wasn't a way to track that from the race exports. Playoff points are given to the winner of the race, just not any stage points, so it's close but not completely accurate.
-        </p>
-        <br>
-        <p>
-            Another issue is with drivers that have the same name. It uses the name for distinguishing between drivers since that is the closes way to almost identify them. The issue is with the way the game exports the race results with just the first letter of each driver along with the last name.
-            So drivers like Kyle and Kurt Busch will both be K Busch. They will obviously be running different numbers but numbers can change during a season so that will not always be accurate. For now the only way I've come up with to solve this is by leaving the first name empty in game and adding their first name to the last name section.
-        </p>
-        <br>
-<!--        <p>-->
-<!--            I'm open to any ideas for solutions and will update it if I find any. Any other issues or ideas for this project can be sent through the contact section at the bottom of this page.-->
-<!--        </p>-->
+    <head th:replace="fragments/fragments.html :: head"></head>
+    <body>
+        <div th:replace="fragments/fragments.html :: header"></div>
+        <div class="bg"></div>
+        <div class="content">
+            <h1>About nrpoints</h1>
+            <br>
+            <p>
+                Since the in-game scoring system for NR2003 is limited up to 2003, to be able to calculate full season standings for any other year with accurate scoring, I made this application and decided to put it here to easily use it. The way it works is using the html file that you can export after running a race in NR2003.
+                You just select the series (currently just Cup, Xfinity and trucks coming soon), the year (ranging from 1975 to now), pick the export files and submit. Make sure the file names end with the correlating race number so the race scoring order can be accurate (If not race order is mixed up and points will not be calculated correctly).
+                Once you submit and the standings are displayed, you can add more races as well by clicking the Add Race button and selecting the files. You can only add up to the number of races that are usually run in that series year (ex. 36 for cup).
+            </p>
+            <br>
+            <p>
+                File types for now are just html, but it doesn't have to be only the html exported from the race results although the html itself does have to match the export file for it to be read correctly.
+            </p>
+            <br>
+            <h2>Current Issues</h2>
+            <br>
+            <p>
+                The scoring system is accurate to the NASCAR points system for each year except for the years that stage points were introduced since there wasn't a way to track that from the race exports. Playoff points are given to the winner of the race, just not any stage points, so it's close but not completely accurate.
+            </p>
+            <br>
+            <p>
+                Another issue is with drivers that have the same name. It uses the name for distinguishing between drivers since that is the closes way to almost identify them. The issue is with the way the game exports the race results with just the first letter of each driver along with the last name.
+                So drivers like Kyle and Kurt Busch will both be K Busch. They will obviously be running different numbers but numbers can change during a season so that will not always be accurate. For now the only way I've come up with to solve this is by leaving the first name empty in game and adding their first name to the last name section.
+            </p>
+        </div>
 
-    </div>
+        <div th:replace="fragments/fragments.html :: footer"></div>
 
-    <div th:replace="fragments/fragments.html :: footer"></div>
-    <script type="text/javascript" th:src="@{/assets/js/test.js}"></script>
-</body>
+        <script type="text/javascript" th:src="@{/assets/js/nrpoints.js}"></script>
+
+    </body>
 </html>

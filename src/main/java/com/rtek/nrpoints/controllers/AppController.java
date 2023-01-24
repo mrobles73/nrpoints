@@ -5,11 +5,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import com.rtek.nrseasonpts.utils.NRUtils;
-import com.rtek.nrseasonpts.CupSeason;
-
-import java.io.IOException;
+import com.rtek.nrseasonpts.Season;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,13 +15,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Controller
 public class AppController {
 
-    private CupSeason season;
-
-    @RequestMapping("/test")
-    public String getTest(Model model) {
-        model.addAttribute("name", "Miguel");
-        return "hometest";
-    }
+    private Season season;
 
     @RequestMapping({"/", "/home"})
     public String getHome(Model model) {
@@ -44,56 +35,48 @@ public class AppController {
         int yearInt = Integer.parseInt(year);
 
         try {
-            season = NRUtils.getSeason(yearInt, series, fileText);
+            season = NRUtils.getContentVersion().getSeason(yearInt, series, fileText);
+            List<List<FullSeasonDriver>> standings = season.getAllStandings();
+            model.addAttribute("pageTitle", "Season");
+            model.addAttribute("year", year);
+            model.addAttribute("raceCount", standings.size());
+            model.addAttribute("raceLimit", season.getRaceCount());
+            model.addAttribute("standings", standings);
+            return "season";
         } catch (Exception e) {
+            e.printStackTrace();
             season = null;
-            String errorMessage = "";
-            if(e instanceof IndexOutOfBoundsException) {
-                errorMessage = "Improper file format. Please try again.";
-
-            } else {
-                errorMessage = "Unable to read files. Please try again";
-            }
+            String errorMessage = (e instanceof IndexOutOfBoundsException) ? "Improper file format. Please try again." : "Unable to read files. Please try again";
             model.addAttribute("errorMessage", errorMessage);
             return "index";
         }
-
-        List<List<FullSeasonDriver>> standings = season.getAllStandings();
-        model.addAttribute("pageTitle", "Season");
-        model.addAttribute("year", year);
-        model.addAttribute("raceCount", standings.size());
-        model.addAttribute("raceLimit", 36); //will be season.getRaceCount();
-        model.addAttribute("standings", standings);
-        return "season";
     }
 
     @RequestMapping(value = "/addrace", method = POST)
     public String postSendFiles(@RequestParam("race-file-text") String raceFilesText, @RequestParam("race-file-text-two") Optional<String> raceFilesTextTwo, Model model) {
-        raceFilesText += raceFilesTextTwo.orElse("");
-        String[] fileText = raceFilesText.trim().split("((?<=</HTML>))");
+        String errorMessage = "";
         if(this.season != null) {
             try {
-                List<List<FullSeasonDriver>> standings = NRUtils.addRacesToSeason(this.season, fileText);
+                raceFilesText += raceFilesTextTwo.orElse("");
+                String[] fileText = raceFilesText.trim().split("((?<=</HTML>))");
+                List<List<FullSeasonDriver>> standings = NRUtils.getContentVersion().addRacesToSeason(this.season, fileText);
                 model.addAttribute("standings", standings);
+                return "fragments/standings-table";
             } catch (Exception e) {
-                String errorMessage = "";
-                if(e instanceof IndexOutOfBoundsException) {
-                    errorMessage = "Improper file format. Please try again.";
-
-                } else {
-                    errorMessage = "Unable to read files. Please try again";
-                }
-                model.addAttribute("message", errorMessage);
-                return "fragments/message";
+                e.printStackTrace();
+                errorMessage = (e instanceof IndexOutOfBoundsException) ? "Improper file format. Please try again." : "Unable to read files. Please try again";
             }
+        } else {
+            System.out.println("ERROR: Attempt to add races to a null Season object");
+            errorMessage = "Unable to add files to season. If error keeps happening try again from home page.";
         }
-
-        return "fragments/standings-table";
+        model.addAttribute("message", errorMessage);
+        return "fragments/message";
     }
 
-    @ResponseBody
-    private String getError(String errorMessage) {
-        return errorMessage;
+    @RequestMapping("/*")
+    public String getAll(){
+        return "notfound";
     }
 
 }

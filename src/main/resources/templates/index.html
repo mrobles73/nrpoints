@@ -1,63 +1,62 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/fragments.html :: head"></head>
-<body>
-    <div th:replace="fragments/fragments.html :: header"></div>
+    <head th:replace="fragments/fragments.html :: head"></head>
+    <body>
+        <div th:replace="fragments/fragments.html :: header"></div>
 
-    <div class="bg"></div>
-    <div th:replace="fragments/fragments.html :: alert"></div>
-    <div class="content">
-        <form action="/season" method="post">
-            <h1>
-                <input type="radio" id="cup" name="series" value="Cup" checked>
-                <label class="radio-label" for="cup">Cup</label>
+        <div class="bg"></div>
 
-                <input type="radio" id="xfinity" name="series" value="Xfinity" disabled>
-                <label class="radio-label" for="xfinity">Xfinity</label>
+        <div th:replace="fragments/fragments.html :: alert"></div>
 
-                <input type="radio" id="trucks" name="series" value="Trucks" disabled>
-                <label class="radio-label" for="trucks">Trucks</label>
-            </h1>
+        <div class="content">
+            <form action="/season" method="post">
+                <h1>
+                    <input type="radio" id="cup" name="series" value="Cup" checked>
+                    <label class="radio-label" for="cup">Cup</label>
+                    <input type="radio" id="gns" name="series" value="GNS" disabled>
+                    <label class="radio-label" for="gns">Xfinity</label>
+                    <input type="radio" id="trucks" name="series" value="Trucks" disabled>
+                    <label class="radio-label" for="trucks">Trucks</label>
+                </h1>
+                <label class="cust-label" for="season-year">Year</label>
+                <input class="cust-input" id="season-year" name="season-year" type="number" min="1975" max="2023" step="1" value="2003"/>
+                <br>
+                <input type="hidden" id="hidden-race-files" name="race-file-text" value=""/>
+                <input type="file" class="race-files" id="race-files" name="race-files" accept=".html" data-multiple-caption="{count} files selected" multiple>
+                <label for="race-files" class="file-input-label cust-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16">
+                        <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707L6.354 9.854z"/>
+                    </svg>
+                    <span>Select race files</span>
+                </label>
+                <input class="cust-btn" type="submit">
+            </form>
+        </div>
 
-            <label class="cust-label" for="season-year">Year</label>
-            <input class="cust-input" id="season-year" name="season-year" type="number" min="1975" max="2023" step="1" value="2003"/>
-            <br>
-            <input type="hidden" id="hidden-race-files" name="race-file-text" value=""/>
-            <input type="file" class="race-files" id="race-files" name="race-files" accept=".html" data-multiple-caption="{count} files selected" multiple>
-            <label for="race-files" class="file-input-label cust-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-arrow-up-fill" viewBox="0 0 16 16">
-                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM6.354 9.854a.5.5 0 0 1-.708-.708l2-2a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 8.707V12.5a.5.5 0 0 1-1 0V8.707L6.354 9.854z"/>
-                </svg>
-                <span>Select race files</span>
-            </label>
-            <input class="cust-btn" type="submit">
-        </form>
-    </div>
+        <div th:replace="fragments/fragments.html :: footer"></div>
 
-    <div th:replace="fragments/fragments.html :: footer"></div>
-
-    <script th:inline="javascript" th:src="@{/assets/js/test.js}"></script>
-    <script type="text/javascript">
-        $("form").on("submit", function(e) {
-            e.preventDefault();
-            const files = $("#race-files").prop('files');
-            if(validateFilesSelected(files)) {
-                const filePromises = [];
-                for(let i=0; i<files.length; i++){
-                    filePromises.push(readFile(files[i]));
+        <script th:inline="javascript" th:src="@{/assets/js/nrpoints.js}"></script>
+        <script type="text/javascript">
+            $("form").on("submit", function(e) {
+                e.preventDefault();
+                const files = $("#race-files").prop('files');
+                if(validateFilesSelected(files)) {
+                    const filePromises = [];
+                    for(let i=0; i<files.length; i++){
+                        filePromises.push(readFile(files[i]));
+                    }
+                    Promise.all(filePromises).then((allText) => {
+                        document.getElementById("hidden-race-files").value = allText;
+                        $(this).unbind('submit').submit()
+                    }).catch((error) => {
+                       showErrorMessage(error.message);
+                    });
                 }
-                Promise.all(filePromises).then((allText) => {
-                    document.getElementById("hidden-race-files").value = allText;
-                    $(this).unbind('submit').submit()
-                }).catch((error) => {
-                   showErrorMessage(error.message);
-                });
-            }
-        });
-    </script>
-    <script th:if="${errorMessage}">
-            showErrorMessage('[[${errorMessage}]]');
-    </script>
+            });
+        </script>
+        <script th:if="${errorMessage}">
+                showErrorMessage('[[${errorMessage}]]');
+        </script>
 
-</body>
+    </body>
 </html>

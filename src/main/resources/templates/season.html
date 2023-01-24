@@ -1,326 +1,331 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/fragments.html :: head"></head>
-<body>
+  <head th:replace="fragments/fragments.html :: head"></head>
+  <body>
 
-  <div th:replace="fragments/fragments.html :: header"></div>
+    <div th:replace="fragments/fragments.html :: header"></div>
 
-  <div class="bg"></div>
-  <div th:replace="fragments/fragments.html :: alert"></div>
-  <div class="content">
+    <div class="bg"></div>
 
-  <!-- Table to display race results -->
-    <h1><span th:text="${year}"/> Cup Season - Race <span id="race-number">1</span></h1>
-    <div id="standings-race-track-container">
-      <h4 th:each="race : ${standings}" th:text="${race.get(0).raceTrack}" class="race-standings-track">Track</h4>
-    </div>
+    <div th:replace="fragments/fragments.html :: alert"></div>
 
-    <div class="test-container">
-      <div class="inner-container">
-        <div class="left-float" id="add-race-group">
-          <input type="file" class="race-file" id="race-file" name="race-file" accept=".html" data-multiple-caption="{count} files selected" multiple>
-          <label for="race-file" class="file-input-label cust-btn small-cust-btn">Add Race(s)</label>
-        </div>
+    <div class="content">
 
-        <div class="pagination-div">
-          <button class="pagination-btn" id="start-btn">&laquo;</button>
-          <button class="pagination-btn" id="prev-btn">&lsaquo;</button>
-          <div id="pagination-nums"></div>
-          <button class="pagination-btn" id="nxt-btn">&rsaquo;</button>
-          <button class="pagination-btn" id="end-btn">&raquo;</button>
-        </div>
+      <h1><span th:text="${year}"/> Cup Season - Race <span id="race-number">1</span></h1>
+
+      <div id="standings-race-track-container">
+        <h4 th:each="race : ${standings}" th:text="${race.get(0).raceTrack}" class="race-standings-track">Track</h4>
       </div>
 
-      <div id="standings-table-container">
-        <table th:each="race : ${standings}" class="race-standings-table">
-          <thead>
-            <tr>
-              <th width="5%">RANK</th>
-              <th width="17%">DRIVER</th>
-              <th width="5%">CAR</th>
-              <th width="7%">POINTS</th>
-              <th width="7%">LDR</th>
-              <th width="7%">NXT</th>
-              <th width="3%">STARTS</th>
-              <th width="3%">POLES</th>
-              <th width="3%">WINS</th>
-              <th width="3%">T5</th>
-              <th width="3%">T10</th>
-              <th width="3%">DNF</th>
-              <th width="9%">LC</th>
-              <th width="7%">LL</th>
-              <th width="9%">AVG START</th>
-              <th width="9%">AVG FINISH</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:each="driver : ${race}">
-              <td th:text="${driver.pointsPosition}">Rank</td>
-              <td th:text="${driver.firstName} + ' ' + ${driver.lastName}">Driver</td>
-              <td th:text="${driver.number}">Car</td>
-              <td th:text="${driver.points}">Points</td>
-              <td th:text="${driver.leader}">Ldr</td>
-              <td th:text="${driver.next}">Nxt</td>
-              <td th:text="${driver.racesRun}">Starts</td>
-              <td th:text="${driver.poles}">Poles</td>
-              <td th:text="${driver.wins}">Wins</td>
-              <td th:text="${driver.t5}">T5s</td>
-              <td th:text="${driver.t10}">T10s</td>
-              <td th:text="${driver.dnf}">DNFs</td>
-              <td th:text="${driver.lapsRun}">LC</td>
-              <td th:text="${driver.lapsLed}">LL</td>
-              <td th:text="${driver.avgStart}">Avg Start</td>
-              <td th:text="${driver.avgFinish}">Avg Finish</td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="test-container">
+
+        <div class="inner-container">
+
+          <div class="left-float" id="add-race-group">
+            <input type="file" class="race-file" id="race-file" name="race-file" accept=".html" data-multiple-caption="{count} files selected" multiple>
+            <label for="race-file" class="file-input-label cust-btn small-cust-btn">Add Race(s)</label>
+          </div>
+
+          <div class="pagination-div">
+            <button class="pagination-btn" id="start-btn">&laquo;</button>
+            <button class="pagination-btn" id="prev-btn">&lsaquo;</button>
+            <div id="pagination-nums"></div>
+            <button class="pagination-btn" id="nxt-btn">&rsaquo;</button>
+            <button class="pagination-btn" id="end-btn">&raquo;</button>
+          </div>
+
+        </div>
+
+        <div id="standings-table-container">
+
+          <table th:each="race : ${standings}" class="race-standings-table">
+            <thead>
+              <tr>
+                <th width="5%">RANK</th>
+                <th width="17%">DRIVER</th>
+                <th width="5%">CAR</th>
+                <th width="7%">POINTS</th>
+                <th width="7%">LDR</th>
+                <th width="7%">NXT</th>
+                <th width="3%">STARTS</th>
+                <th width="3%">POLES</th>
+                <th width="3%">WINS</th>
+                <th width="3%">T5</th>
+                <th width="3%">T10</th>
+                <th width="3%">DNF</th>
+                <th width="9%">LC</th>
+                <th width="7%">LL</th>
+                <th width="9%">AVG START</th>
+                <th width="9%">AVG FINISH</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="driver : ${race}">
+                <td th:text="${driver.pointsPosition}">Rank</td>
+                <td th:text="${driver.firstName} + ' ' + ${driver.lastName}">Driver</td>
+                <td th:text="${driver.number}">Car</td>
+                <td th:text="${driver.points}">Points</td>
+                <td th:text="${driver.leader}">Ldr</td>
+                <td th:text="${driver.next}">Nxt</td>
+                <td th:text="${driver.racesRun}">Starts</td>
+                <td th:text="${driver.poles}">Poles</td>
+                <td th:text="${driver.wins}">Wins</td>
+                <td th:text="${driver.t5}">T5s</td>
+                <td th:text="${driver.t10}">T10s</td>
+                <td th:text="${driver.dnf}">DNFs</td>
+                <td th:text="${driver.lapsRun}">LC</td>
+                <td th:text="${driver.lapsLed}">LL</td>
+                <td th:text="${driver.avgStart}">Avg Start</td>
+                <td th:text="${driver.avgFinish}">Avg Finish</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+
       </div>
 
     </div>
 
+    <div th:replace="fragments/fragments.html :: footer"></div>
 
-  </div>
-
-  <div th:replace="fragments/fragments.html :: footer"></div>
-
-  <script type="text/javascript" th:src="@{/assets/js/test.js}"></script>
-  <script th:inline="javascript">
-    const paginationNums = document.getElementById("pagination-nums");
-    const nextBtn = document.getElementById("nxt-btn");
-    const prevBtn = document.getElementById("prev-btn");
-    const startBtn = document.getElementById("start-btn");
-    const endBtn = document.getElementById("end-btn");
-    const addRaceInputGroup = document.querySelector("#add-race-group");
-    const raceCountDisplay = document.querySelector("#race-number");
-    const fileInput = document.querySelector("#race-file");
-    const standingsTableContainer = document.querySelector("#standings-table-container");
-    const standingsRaceTrackContainer = document.querySelector("#standings-race-track-container");
-    const raceLimit = [[${raceLimit}]];
-    let raceCount = [[${raceCount}]];
-    let races = document.querySelectorAll(".race-standings-table");
-    let raceTracks = document.querySelectorAll(".race-standings-track");
-    let currentRace;
+    <script type="text/javascript" th:src="@{/assets/js/nrpoints.js}"></script>
+    <script th:inline="javascript">
+      const paginationNums = document.getElementById("pagination-nums");
+      const nextBtn = document.getElementById("nxt-btn");
+      const prevBtn = document.getElementById("prev-btn");
+      const startBtn = document.getElementById("start-btn");
+      const endBtn = document.getElementById("end-btn");
+      const addRaceInputGroup = document.querySelector("#add-race-group");
+      const raceCountDisplay = document.querySelector("#race-number");
+      const fileInput = document.querySelector("#race-file");
+      const standingsTableContainer = document.querySelector("#standings-table-container");
+      const standingsRaceTrackContainer = document.querySelector("#standings-race-track-container");
+      const raceLimit = [[${raceLimit}]];
+      let raceCount = [[${raceCount}]];
+      let races = document.querySelectorAll(".race-standings-table");
+      let raceTracks = document.querySelectorAll(".race-standings-track");
+      let currentRace;
 
 
-    fileInput.addEventListener('change', () => {
-      const files = fileInput.files;
-      if(validateFilesSelected(files)) {
-        const filePromises = [];
-        const fileCount = files.length;
-        for(let i=0; i<files.length; i++){
-            filePromises.push(readFile(files[i]));
-        }
-        Promise.all(filePromises).then((allText) => {
-          const xhr = new XMLHttpRequest();
-          xhr.open("POST", "/addrace", true);
-          xhr.onreadystatechange = () => {
-              if(xhr.readyState === 4 && xhr.status === 200) {
-                  let returnedText = xhr.responseText;
-                  if(returnedText.startsWith('<span>')) {
-                    let message = returnedText.substring(6, (returnedText.length-7));
-                    showErrorMessage(message);
-                  } else {
-                    raceCount += fileCount;
-                    if(raceCount === raceLimit) {
-                      addRaceInputGroup.classList.add("hidden");
-                    }
-                    let newStandingsArr = returnedText.split("<br>");
-                    let newStandingsTracks = document.createRange().createContextualFragment(newStandingsArr[0]);
-                    let newStandings = document.createRange().createContextualFragment(newStandingsArr[1]);
-                    //add the html to the table, update the race count, and the pagination
-                    standingsRaceTrackContainer.appendChild(newStandingsTracks);
-                    standingsTableContainer.appendChild(newStandings);
-                    races = document.querySelectorAll(".race-standings-table");
-                    raceTracks = document.querySelectorAll(".race-standings-track");
-                    addPaginationNumbers(fileCount);
-                    setCurrentRace(currentRace);
-                    setTableHeaderClickEvent();
-                  }
-              }
-          };
-          const formData = new FormData();
-          if(allText.length > 30) {
-            let aTextOne = allText.slice(0, 30);
-            let aTextTwo = allText.slice(30);
-            formData.append('race-file-text', aTextOne);
-            formData.append('race-file-text-two', aTextTwo);
-          } else {
-            formData.append('race-file-text', allText);
+      fileInput.addEventListener('change', () => {
+        const files = fileInput.files;
+        if(validateFilesSelected(files)) {
+          const filePromises = [];
+          const fileCount = files.length;
+          for(let i=0; i<files.length; i++){
+              filePromises.push(readFile(files[i]));
           }
-          xhr.send(formData);
-        }).catch((error) => {
-           showErrorMessage(error.message);
-        });
-      }
-    });
-
-    const appendRaceNumber = (index) => {
-      const raceNumber = document.createElement("button");
-      raceNumber.className = "pagination-num";
-      raceNumber.innerHTML = index;
-      raceNumber.setAttribute("race-index", index);
-      paginationNums.appendChild(raceNumber);
-    };
-
-    const getPaginationNumbers = () => {
-      for(var i = 1; i <= raceCount; i++) {
-        appendRaceNumber(i);
-      }
-    };
-
-    const addPaginationNumbers = (amount) => {
-      for(let i=(raceCount-amount+1); i<=raceCount; i++) {
-        appendRaceNumber(i);
-      }
-      let nums = document.querySelectorAll(".pagination-num");
-      for(let i=(raceCount-amount); i<raceCount; i++) {
-         const raceIndex = Number(nums[i].getAttribute("race-index"));
-         if(raceIndex){
-            nums[i].addEventListener("click", () => {
-              setCurrentRace(raceIndex);
-            });
-         }
-      }
-    };
-
-    const setCurrentRace = (raceNum) => {
-      currentRace = raceNum;
-      raceCountDisplay.innerHTML = raceNum;
-      handleActiveRaceNumber();
-      handleBtnStatus();
-      if(raceCount > 5) {
-        handleBtnCount();
-      }
-      for(var i=0; i<raceCount; i++) {
-        races[i].classList.add("hidden");
-        raceTracks[i].classList.add("hidden");
-        if((i+1) === raceNum) {
-          races[i].classList.remove("hidden");
-          raceTracks[i].classList.remove("hidden");
-        }
-      }
-    };
-
-    const handleActiveRaceNumber = () => {
-      document.querySelectorAll(".pagination-num").forEach((button) => {
-        button.classList.remove("active");
-        const raceIndex = Number(button.getAttribute("race-index"));
-        if(raceIndex === currentRace) {
-          button.classList.add("active");
-        }
-      });
-    };
-
-    const disableBtn = (button) => {
-       button.classList.add("disabled");
-       button.setAttribute("disabled", true);
-    };
-
-    const enableBtn = (button) => {
-       button.classList.remove("disabled");
-       button.removeAttribute("disabled", true);
-    };
-
-    const handleBtnStatus = () => {
-      if(currentRace === 1) {
-        disableBtn(prevBtn);
-      } else {
-        enableBtn(prevBtn);
-      }
-      if(raceCount === currentRace) {
-        disableBtn(nextBtn);
-      } else {
-        enableBtn(nextBtn);
-      }
-      if(currentRace < 6) {
-        disableBtn(startBtn);
-      } else {
-        enableBtn(startBtn);
-      }
-      if(currentRace > (raceCount - 5)) {
-        disableBtn(endBtn);
-      } else {
-        enableBtn(endBtn);
-      }
-    };
-
-    const handleBtnCount = () => {
-      paginationBtns = document.querySelectorAll(".pagination-num");
-      paginationBtns.forEach((button) => {
-          button.classList.add("hidden");
-      });
-      let index = 0;
-      let limit;
-      if(currentRace < 6) {
-        index = 0;
-        limit = 5;
-      } else if(currentRace > raceCount-5) {
-        index = raceCount-5;
-        limit = raceCount;
-      } else {
-        index = currentRace-3;
-        limit = currentRace+2;
-      }
-      for(var i=index; i<limit; i++) {
-          paginationBtns[i].classList.remove("hidden");
-      }
-    };
-
-    const getCellValue = (tr, index) => tr.children[index].innerText || tr.children[idx].textContent;
-
-    const comparer = (index, asc) => (a , b) => ((v1, v2) => v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2))(getCellValue(asc ? a : b, index), getCellValue(asc ? b : a, index));
-
-    const setTableHeaderClickEvent = () => {
-      document.querySelectorAll('th').forEach(th => {
-        if(!th.hasAttribute('table-sort-click-event')) {
-          th.addEventListener('click', (() => {
-           const table = th.closest('table');
-           const tbody = table.querySelector('tbody');
-           Array.from(tbody.querySelectorAll('tr'))
-            .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
-            .forEach(tr => tbody.appendChild(tr));
-          }));
-        }
-        th.setAttribute('table-sort-click-event', 'true');
-      });
-    };
-
-    window.addEventListener("load", () => {
-      getPaginationNumbers();
-      setCurrentRace(1);
-      setTableHeaderClickEvent();
-
-      if(raceCount === raceLimit) {
-        addRaceInputGroup.classList.add("hidden");
-      }
-
-      nextBtn.addEventListener("click", () => {
-        setCurrentRace(currentRace + 1);
-      });
-
-      prevBtn.addEventListener("click", () => {
-        setCurrentRace(currentRace - 1);
-      });
-
-      startBtn.addEventListener("click", () => {
-        setCurrentRace(1);
-      });
-
-      endBtn.addEventListener("click", () => {
-        setCurrentRace(raceCount);
-      });
-
-      document.querySelectorAll(".pagination-num").forEach((button) => {
-        const raceIndex = Number(button.getAttribute("race-index"));
-        if(raceIndex){
-          button.addEventListener("click", () => {
-            setCurrentRace(raceIndex);
+          Promise.all(filePromises).then((allText) => {
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/addrace", true);
+            xhr.onreadystatechange = () => {
+                if(xhr.readyState === 4 && xhr.status === 200) {
+                    let returnedText = xhr.responseText;
+                    if(returnedText.startsWith('<span>')) {
+                      let message = returnedText.substring(6, (returnedText.length-7));
+                      showErrorMessage(message);
+                    } else {
+                      raceCount += fileCount;
+                      if(raceCount === raceLimit) {
+                        addRaceInputGroup.classList.add("hidden");
+                      }
+                      let newStandingsArr = returnedText.split("<br>");
+                      let newStandingsTracks = document.createRange().createContextualFragment(newStandingsArr[0]);
+                      let newStandings = document.createRange().createContextualFragment(newStandingsArr[1]);
+                      //add the html to the table, update the race count, and the pagination
+                      standingsRaceTrackContainer.appendChild(newStandingsTracks);
+                      standingsTableContainer.appendChild(newStandings);
+                      races = document.querySelectorAll(".race-standings-table");
+                      raceTracks = document.querySelectorAll(".race-standings-track");
+                      addPaginationNumbers(fileCount);
+                      setCurrentRace(currentRace);
+                      setTableHeaderClickEvent();
+                    }
+                }
+            };
+            const formData = new FormData();
+            if(allText.length > 30) {
+              let aTextOne = allText.slice(0, 30);
+              let aTextTwo = allText.slice(30);
+              formData.append('race-file-text', aTextOne);
+              formData.append('race-file-text-two', aTextTwo);
+            } else {
+              formData.append('race-file-text', allText);
+            }
+            xhr.send(formData);
+          }).catch((error) => {
+             showErrorMessage(error.message);
           });
         }
       });
-    });
 
-  </script>
+      const appendRaceNumber = (index) => {
+        const raceNumber = document.createElement("button");
+        raceNumber.className = "pagination-num";
+        raceNumber.innerHTML = index;
+        raceNumber.setAttribute("race-index", index);
+        paginationNums.appendChild(raceNumber);
+      };
 
-</body>
+      const getPaginationNumbers = () => {
+        for(var i = 1; i <= raceCount; i++) {
+          appendRaceNumber(i);
+        }
+      };
+
+      const addPaginationNumbers = (amount) => {
+        for(let i=(raceCount-amount+1); i<=raceCount; i++) {
+          appendRaceNumber(i);
+        }
+        let nums = document.querySelectorAll(".pagination-num");
+        for(let i=(raceCount-amount); i<raceCount; i++) {
+           const raceIndex = Number(nums[i].getAttribute("race-index"));
+           if(raceIndex){
+              nums[i].addEventListener("click", () => {
+                setCurrentRace(raceIndex);
+              });
+           }
+        }
+      };
+
+      const setCurrentRace = (raceNum) => {
+        currentRace = raceNum;
+        raceCountDisplay.innerHTML = raceNum;
+        handleActiveRaceNumber();
+        handleBtnStatus();
+        if(raceCount > 5) {
+          handleBtnCount();
+        }
+        for(var i=0; i<raceCount; i++) {
+          races[i].classList.add("hidden");
+          raceTracks[i].classList.add("hidden");
+          if((i+1) === raceNum) {
+            races[i].classList.remove("hidden");
+            raceTracks[i].classList.remove("hidden");
+          }
+        }
+      };
+
+      const handleActiveRaceNumber = () => {
+        document.querySelectorAll(".pagination-num").forEach((button) => {
+          button.classList.remove("active");
+          const raceIndex = Number(button.getAttribute("race-index"));
+          if(raceIndex === currentRace) {
+            button.classList.add("active");
+          }
+        });
+      };
+
+      const disableBtn = (button) => {
+         button.classList.add("disabled");
+         button.setAttribute("disabled", true);
+      };
+
+      const enableBtn = (button) => {
+         button.classList.remove("disabled");
+         button.removeAttribute("disabled", true);
+      };
+
+      const handleBtnStatus = () => {
+        if(currentRace === 1) {
+          disableBtn(prevBtn);
+        } else {
+          enableBtn(prevBtn);
+        }
+        if(raceCount === currentRace) {
+          disableBtn(nextBtn);
+        } else {
+          enableBtn(nextBtn);
+        }
+        if(currentRace < 6) {
+          disableBtn(startBtn);
+        } else {
+          enableBtn(startBtn);
+        }
+        if(currentRace > (raceCount - 5)) {
+          disableBtn(endBtn);
+        } else {
+          enableBtn(endBtn);
+        }
+      };
+
+      const handleBtnCount = () => {
+        paginationBtns = document.querySelectorAll(".pagination-num");
+        paginationBtns.forEach((button) => {
+            button.classList.add("hidden");
+        });
+        let index = 0;
+        let limit;
+        if(currentRace < 6) {
+          index = 0;
+          limit = 5;
+        } else if(currentRace > raceCount-5) {
+          index = raceCount-5;
+          limit = raceCount;
+        } else {
+          index = currentRace-3;
+          limit = currentRace+2;
+        }
+        for(var i=index; i<limit; i++) {
+            paginationBtns[i].classList.remove("hidden");
+        }
+      };
+
+      const getCellValue = (tr, index) => tr.children[index].innerText || tr.children[idx].textContent;
+
+      const comparer = (index, asc) => (a , b) => ((v1, v2) => v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2))(getCellValue(asc ? a : b, index), getCellValue(asc ? b : a, index));
+
+      const setTableHeaderClickEvent = () => {
+        document.querySelectorAll('th').forEach(th => {
+          if(!th.hasAttribute('table-sort-click-event')) {
+            th.addEventListener('click', (() => {
+             const table = th.closest('table');
+             const tbody = table.querySelector('tbody');
+             Array.from(tbody.querySelectorAll('tr'))
+              .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+              .forEach(tr => tbody.appendChild(tr));
+            }));
+          }
+          th.setAttribute('table-sort-click-event', 'true');
+        });
+      };
+
+      window.addEventListener("load", () => {
+        getPaginationNumbers();
+        setCurrentRace(1);
+        setTableHeaderClickEvent();
+
+        if(raceCount === raceLimit) {
+          addRaceInputGroup.classList.add("hidden");
+        }
+
+        nextBtn.addEventListener("click", () => {
+          setCurrentRace(currentRace + 1);
+        });
+
+        prevBtn.addEventListener("click", () => {
+          setCurrentRace(currentRace - 1);
+        });
+
+        startBtn.addEventListener("click", () => {
+          setCurrentRace(1);
+        });
+
+        endBtn.addEventListener("click", () => {
+          setCurrentRace(raceCount);
+        });
+
+        document.querySelectorAll(".pagination-num").forEach((button) => {
+          const raceIndex = Number(button.getAttribute("race-index"));
+          if(raceIndex){
+            button.addEventListener("click", () => {
+              setCurrentRace(raceIndex);
+            });
+          }
+        });
+      });
+    </script>
+
+  </body>
 </html>
