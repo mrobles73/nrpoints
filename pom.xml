@@ -41,7 +41,7 @@
 
 		<dependency>
 			<groupId>com.rtek</groupId>
-			<artifactId>nrseasonpts </artifactId>
+			<artifactId>nrseasonpts</artifactId>
 			<version>1.0.1</version>
 		</dependency>
 

@@ -4,7 +4,7 @@
     <body>
         <div th:replace="fragments/fragments.html :: header"></div>
         <div class="bg"></div>
-        <div class="content">
+        <div class="content-container">
             <h1>About nrpoints</h1>
             <br>
             <p>
@@ -26,6 +26,10 @@
             <p>
                 Another issue is with drivers that have the same name. It uses the name for distinguishing between drivers since that is the closes way to almost identify them. The issue is with the way the game exports the race results with just the first letter of each driver along with the last name.
                 So drivers like Kyle and Kurt Busch will both be K Busch. They will obviously be running different numbers but numbers can change during a season so that will not always be accurate. For now the only way I've come up with to solve this is by leaving the first name empty in game and adding their first name to the last name section.
+            </p>
+            <br>
+            <p>
+                There will be some more future updates and to see the code that handles the scoring logic visit the github page <a class="cust-a" href="https://github.com/mrobles73/nrseasonpoints">here</a>.
             </p>
         </div>
 
